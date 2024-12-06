@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Vault - Coming Soon</title>
+  <style>
+    /* Reset and basic styling */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle, #0f0f0f, #000);
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin: 0;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #f39c12, #e74c3c, #8e44ad);
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: glowText 2s infinite alternate;
+    }
+
+    @keyframes glowText {
+      from {
+        text-shadow: 0 0 10px #f39c12, 0 0 20px #e74c3c, 0 0 30px #8e44ad;
+      }
+      to {
+        text-shadow: 0 0 20px #f39c12, 0 0 40px #e74c3c, 0 0 50px #8e44ad;
+      }
+    }
+
+    .vault {
+      font-size: 8rem;
+      color: #f39c12;
+      text-shadow: 0 0 20px #f39c12, 0 0 30px #e74c3c, 0 0 40px #8e44ad;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .typing {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 24ch;
+      animation: typing 3.5s steps(24) infinite, blink 0.5s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 24ch;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    .countdown {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+
+    .countdown span {
+      color: #f39c12;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="vault">🔒</div>
+    <h1>Game Vault</h1>
+    <div class="typing">The treasure is being unlocked...</div>
+    <div class="countdown">Launching in <span id="timer">00d 00h 00m 00s</span></div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    const targetDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000; // 7 days from now
+    const timer = document.getElementById("timer");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timer.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        timer.innerText = "Launched!";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
